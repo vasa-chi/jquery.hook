@@ -54,16 +54,10 @@
 			if (old && !old.__hookold) {
 
 				$.fn[ method ] = function () {
-					this.each(function() {
-						$(this).triggerHandler('onbefore' + method)
-					});
-					this.each(function() {
-						$(this).triggerHandler('on' + method)
-					});
+					this.trigger('onbefore' + method, arguments);
+					this.trigger('on' + method, arguments)
 					var ret = old.apply(this, arguments);
-					this.each(function() {
-						$(this).triggerHandler('onafter' + method)
-					});
+					this.trigger('onafter' + method, arguments)
 					return ret;
 				};
 
